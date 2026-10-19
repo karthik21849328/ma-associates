@@ -38,15 +38,11 @@ export default function Employees() {
     const salary = salariesInMonth
       .filter((s) => s.employeeId === emp.id)
       .reduce((sum, s) => sum + Number(s.amount), 0)
-    const empExpenses = expensesInMonth.filter((x) => x.employeeId === emp.id)
-    const expenseTotal = empExpenses.reduce((sum, x) => sum + Number(x.amount), 0)
-    const travel = empExpenses
-      .filter((x) => x.type === 'Travel')
+    const otherExpense = expensesInMonth
+      .filter((x) => x.employeeId === emp.id)
       .reduce((sum, x) => sum + Number(x.amount), 0)
-    const other = empExpenses
-      .filter((x) => x.type === 'Expense')
-      .reduce((sum, x) => sum + Number(x.amount), 0)
-    return { emp, salary, expenseTotal, travel, other }
+    const total = salary + otherExpense
+    return { emp, salary, otherExpense, total }
   })
 
   const onSalary = (e) => {
@@ -249,7 +245,7 @@ export default function Employees() {
               <h2>By employee · {formatMonth(filterMonth)}</h2>
             </div>
             <div className="list">
-              {employeeRows.map(({ emp, salary, expenseTotal, travel, other }) => (
+              {employeeRows.map(({ emp, salary, otherExpense, total }) => (
                 <div key={emp.id} className="list-item emp-month-row">
                   <div className="list-item-top">
                     <div>
@@ -257,7 +253,7 @@ export default function Employees() {
                       <p className="meta">{emp.role}</p>
                     </div>
                   </div>
-                  <div className="emp-month-stats">
+                  <div className="emp-month-stats emp-month-stats-3">
                     <div>
                       <span className="label">Salary</span>
                       <span className="value">
@@ -265,21 +261,15 @@ export default function Employees() {
                       </span>
                     </div>
                     <div>
-                      <span className="label">Total expense</span>
+                      <span className="label">Other expense</span>
                       <span className="value">
-                        {expenseTotal > 0 ? formatINR(expenseTotal) : '—'}
+                        {otherExpense > 0 ? formatINR(otherExpense) : '—'}
                       </span>
                     </div>
                     <div>
-                      <span className="label">Travel</span>
+                      <span className="label">Total</span>
                       <span className="value">
-                        {travel > 0 ? formatINR(travel) : '—'}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="label">Other</span>
-                      <span className="value">
-                        {other > 0 ? formatINR(other) : '—'}
+                        {total > 0 ? formatINR(total) : '—'}
                       </span>
                     </div>
                   </div>

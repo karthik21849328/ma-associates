@@ -811,9 +811,17 @@ p {
   letter-spacing: 0.02em;
 }
 
+.emp-month-stats-3 {
+  grid-template-columns: 1fr;
+}
+
 @media (min-width: 640px) {
   .emp-month-stats {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .emp-month-stats-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .filter-bar {
