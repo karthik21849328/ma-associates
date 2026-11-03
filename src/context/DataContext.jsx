@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import {
   CATEGORIES,
+  MASONRY_SUBCATEGORIES,
   PAYMENT_MODES,
   initialEmployees,
   initialExpenses,
@@ -11,7 +12,7 @@ import {
 } from '../data/mock'
 import { todayISO, uid } from '../utils/format'
 
-const STORAGE_KEY = 'ma-associates-data-v2'
+const STORAGE_KEY = 'ma-associates-data-v5'
 
 const DataContext = createContext(null)
 
@@ -114,6 +115,7 @@ export function DataProvider({ children }) {
     () => ({
       ...state,
       CATEGORIES,
+      MASONRY_SUBCATEGORIES,
       PAYMENT_MODES,
       addRequest,
       makePayment,

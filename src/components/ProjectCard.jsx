@@ -12,7 +12,7 @@ export default function ProjectCard({
       <div className="project-card-top">
         <div>
           <h2>{project.name}</h2>
-          <p className="loc">{project.location}</p>
+          {project.location ? <p className="loc">{project.location}</p> : null}
         </div>
         {pendingCount > 0 && (
           <span className="badge badge-count">{pendingCount} pending</span>

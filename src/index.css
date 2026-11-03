@@ -651,6 +651,12 @@ p {
   gap: 0.65rem;
 }
 
+@media (min-width: 640px) {
+  .category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .category-cell {
   padding: 0.95rem;
   background: var(--surface-elevated);
@@ -837,7 +843,8 @@ p {
   gap: 0.35rem;
 }
 
-.field label {
+.field label,
+.field-label-text {
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--ink-muted);

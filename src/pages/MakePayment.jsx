@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import CategoryFields from '../components/CategoryFields'
 import { useData } from '../context/DataContext'
+import { defaultSubCategory, formatCategory, isMasonry } from '../utils/category'
 import { formatINR, todayISO } from '../utils/format'
 
 export default function MakePayment() {
@@ -20,6 +22,7 @@ export default function MakePayment() {
     payee: '',
     amount: '',
     category: CATEGORIES[0],
+    subCategory: '',
     paymentMode: PAYMENT_MODES[0],
     note: '',
     paidAt: todayISO(),
@@ -27,11 +30,13 @@ export default function MakePayment() {
 
   useEffect(() => {
     if (!linkedRequest) return
+    const category = linkedRequest.category || CATEGORIES[0]
     setForm((f) => ({
       ...f,
       payee: linkedRequest.vendorName || '',
       amount: String(linkedRequest.amount ?? ''),
-      category: linkedRequest.category || CATEGORIES[0],
+      category,
+      subCategory: linkedRequest.subCategory || defaultSubCategory(category),
       note: linkedRequest.description || '',
       paidAt: todayISO(),
     }))
@@ -48,13 +53,23 @@ export default function MakePayment() {
     )
   }
 
+  const onCategoryChange = (category) => {
+    setForm((f) => ({
+      ...f,
+      category,
+      subCategory: defaultSubCategory(category),
+    }))
+  }
+
   const onSubmit = (e) => {
     e.preventDefault()
     if (!form.payee || !form.amount || !form.paymentMode) return
+    if (isMasonry(form.category) && !form.subCategory) return
     makePayment({
       projectId: project.id,
       requestId: linkedRequest?.id || null,
       category: form.category,
+      subCategory: isMasonry(form.category) ? form.subCategory : '',
       amount: Number(form.amount),
       payee: form.payee.trim(),
       paymentMode: form.paymentMode,
@@ -84,7 +99,8 @@ export default function MakePayment() {
         <div className="callout">
           <span className="callout-label">From request</span>
           <strong>
-            {linkedRequest.category} · {formatINR(linkedRequest.amount)}
+            {formatCategory(linkedRequest.category, linkedRequest.subCategory)} ·{' '}
+            {formatINR(linkedRequest.amount)}
           </strong>
           <p>{linkedRequest.description}</p>
         </div>
@@ -109,20 +125,16 @@ export default function MakePayment() {
             />
           </div>
 
-          <div className="field">
-            <label htmlFor="pay-cat">Category</label>
-            <select
-              id="pay-cat"
-              value={form.category}
-              onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-            >
-              {CATEGORIES.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-          </div>
+          <CategoryFields
+            idPrefix="pay"
+            categories={CATEGORIES}
+            category={form.category}
+            subCategory={form.subCategory}
+            onCategoryChange={onCategoryChange}
+            onSubCategoryChange={(subCategory) =>
+              setForm((f) => ({ ...f, subCategory }))
+            }
+          />
 
           <div className="field">
             <label htmlFor="pay-amt">Payment amount (₹)</label>

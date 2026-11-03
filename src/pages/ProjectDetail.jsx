@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useData } from '../context/DataContext'
 import { useRole } from '../context/RoleContext'
+import { formatCategory } from '../utils/category'
 import { formatDate, formatINR } from '../utils/format'
 
 export default function ProjectDetail() {
@@ -35,7 +36,11 @@ export default function ProjectDetail() {
       </Link>
 
       <div className="page-head">
-        <p className="page-kicker">{project.location}</p>
+        {project.location ? (
+          <p className="page-kicker">{project.location}</p>
+        ) : (
+          <p className="page-kicker">Ongoing project</p>
+        )}
         <h1>{project.name}</h1>
         <p>
           {isAssistant
@@ -142,7 +147,7 @@ export default function ProjectDetail() {
                 <div className="list-item-top">
                   <div>
                     <h3>
-                      {r.category}
+                      {formatCategory(r.category, r.subCategory)}
                       {r.vendorName ? ` · ${r.vendorName}` : ''}
                     </h3>
                     <p className="meta">
@@ -185,7 +190,7 @@ export default function ProjectDetail() {
                 <div className="list-item-top">
                   <div>
                     <h3>
-                      {p.payee} · {p.category}
+                      {p.payee} · {formatCategory(p.category, p.subCategory)}
                     </h3>
                     <p className="meta">
                       {p.paymentMode && (

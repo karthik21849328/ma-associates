@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import CategoryFields from '../components/CategoryFields'
 import { useData } from '../context/DataContext'
+import { defaultSubCategory, isMasonry } from '../utils/category'
 import { formatINR } from '../utils/format'
 
 export default function NewRequest() {
@@ -12,6 +14,7 @@ export default function NewRequest() {
 
   const [form, setForm] = useState({
     category: CATEGORIES[0],
+    subCategory: '',
     amount: '',
     vendorName: '',
     description: '',
@@ -28,12 +31,22 @@ export default function NewRequest() {
     )
   }
 
+  const onCategoryChange = (category) => {
+    setForm((f) => ({
+      ...f,
+      category,
+      subCategory: defaultSubCategory(category),
+    }))
+  }
+
   const onSubmit = (e) => {
     e.preventDefault()
     if (!form.amount) return
+    if (isMasonry(form.category) && !form.subCategory) return
     addRequest({
       projectId: project.id,
       category: form.category,
+      subCategory: isMasonry(form.category) ? form.subCategory : '',
       amount: Number(form.amount),
       vendorName: form.vendorName.trim(),
       description: form.description.trim(),
@@ -60,20 +73,16 @@ export default function NewRequest() {
         </div>
 
         <form className="form" onSubmit={onSubmit}>
-          <div className="field">
-            <label htmlFor="req-cat">Category</label>
-            <select
-              id="req-cat"
-              value={form.category}
-              onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-            >
-              {CATEGORIES.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-          </div>
+          <CategoryFields
+            idPrefix="req"
+            categories={CATEGORIES}
+            category={form.category}
+            subCategory={form.subCategory}
+            onCategoryChange={onCategoryChange}
+            onSubCategoryChange={(subCategory) =>
+              setForm((f) => ({ ...f, subCategory }))
+            }
+          />
 
           <div className="field">
             <label htmlFor="req-amt">Amount (₹)</label>
@@ -109,7 +118,7 @@ export default function NewRequest() {
             <label htmlFor="req-desc">Description</label>
             <textarea
               id="req-desc"
-              placeholder="e.g. Labour payment for machinery hire"
+              placeholder="e.g. Labour payment for site work"
               value={form.description}
               onChange={(e) =>
                 setForm((f) => ({ ...f, description: e.target.value }))
