@@ -27,15 +27,15 @@ export const ROLES = {
 }
 
 export const initialProjects = [
-  { id: 'p1', name: 'Dabaspet - VRL', location: '', status: 'ongoing' },
-  { id: 'p2', name: 'Varur - VRL', location: '', status: 'ongoing' },
-  { id: 'p3', name: 'Pune - VRL', location: '', status: 'ongoing' },
-  { id: 'p4', name: 'Tharihal - Nidec', location: '', status: 'ongoing' },
-  { id: 'p5', name: 'Malatesh sir home - Navanagar', location: '', status: 'ongoing' },
-  { id: 'p6', name: 'Deshpande Home - Navanagar', location: '', status: 'ongoing' },
-  { id: 'p7', name: 'belur - Nidec', location: '', status: 'ongoing' },
-  { id: 'p8', name: 'KenAgritech', location: '', status: 'ongoing' },
-  { id: 'p9', name: 'Belguam- Megha Engineering', location: '', status: 'ongoing' },
+  { id: 'p1', name: 'Dabaspet - VRL', location: '', status: 'ongoing', plannedBudget: 2500000 },
+  { id: 'p2', name: 'Varur - VRL', location: '', status: 'ongoing', plannedBudget: 1800000 },
+  { id: 'p3', name: 'Pune - VRL', location: '', status: 'ongoing', plannedBudget: 3200000 },
+  { id: 'p4', name: 'Tharihal - Nidec', location: '', status: 'ongoing', plannedBudget: 2100000 },
+  { id: 'p5', name: 'Malatesh sir home - Navanagar', location: '', status: 'ongoing', plannedBudget: 950000 },
+  { id: 'p6', name: 'Deshpande Home - Navanagar', location: '', status: 'ongoing', plannedBudget: 1100000 },
+  { id: 'p7', name: 'belur - Nidec', location: '', status: 'ongoing', plannedBudget: 1750000 },
+  { id: 'p8', name: 'KenAgritech', location: '', status: 'ongoing', plannedBudget: 2800000 },
+  { id: 'p9', name: 'Belguam- Megha Engineering', location: '', status: 'ongoing', plannedBudget: 4500000 },
 ]
 
 export const initialEmployees = [

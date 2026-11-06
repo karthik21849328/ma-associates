@@ -6,9 +6,12 @@ import { DataProvider } from './context/DataContext'
 import { RoleProvider } from './context/RoleContext'
 import { ROLES } from './data/mock'
 import Dashboard from './pages/Dashboard'
+import EmployeeHistory from './pages/EmployeeHistory'
 import Employees from './pages/Employees'
 import Login from './pages/Login'
 import MakePayment from './pages/MakePayment'
+import NewEmployee from './pages/NewEmployee'
+import NewProject from './pages/NewProject'
 import NewRequest from './pages/NewRequest'
 import ProjectDetail from './pages/ProjectDetail'
 
@@ -27,6 +30,30 @@ export default function App() {
                   element={
                     <RequireRole roles={[ROLES.ENGINEER]}>
                       <Employees />
+                    </RequireRole>
+                  }
+                />
+                <Route
+                  path="employees/new"
+                  element={
+                    <RequireRole roles={[ROLES.ENGINEER]}>
+                      <NewEmployee />
+                    </RequireRole>
+                  }
+                />
+                <Route
+                  path="employees/history"
+                  element={
+                    <RequireRole roles={[ROLES.ENGINEER]}>
+                      <EmployeeHistory />
+                    </RequireRole>
+                  }
+                />
+                <Route
+                  path="projects/new"
+                  element={
+                    <RequireRole roles={[ROLES.ENGINEER]}>
+                      <NewProject />
                     </RequireRole>
                   }
                 />

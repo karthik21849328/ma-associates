@@ -12,7 +12,7 @@ import {
 } from '../data/mock'
 import { todayISO, uid } from '../utils/format'
 
-const STORAGE_KEY = 'ma-associates-data-v5'
+const STORAGE_KEY = 'ma-associates-data-v6'
 
 const DataContext = createContext(null)
 
@@ -92,6 +92,40 @@ export function DataProvider({ children }) {
     return entry
   }
 
+  const updatePlannedBudget = (projectId, plannedBudget) => {
+    setState((s) => ({
+      ...s,
+      projects: s.projects.map((p) =>
+        p.id === projectId
+          ? { ...p, plannedBudget: Number(plannedBudget) || 0 }
+          : p,
+      ),
+    }))
+  }
+
+  const addProject = (payload) => {
+    const project = {
+      id: uid('p'),
+      name: payload.name.trim(),
+      location: (payload.location || '').trim(),
+      status: 'ongoing',
+      plannedBudget: Number(payload.plannedBudget) || 0,
+    }
+    setState((s) => ({ ...s, projects: [project, ...s.projects] }))
+    return project
+  }
+
+  const addEmployee = (payload) => {
+    const employee = {
+      id: uid('e'),
+      name: payload.name.trim(),
+      role: (payload.role || '').trim() || 'Staff',
+      phone: (payload.phone || '').trim(),
+    }
+    setState((s) => ({ ...s, employees: [employee, ...s.employees] }))
+    return employee
+  }
+
   const getProjectSpend = (projectId) => {
     const byCategory = Object.fromEntries(CATEGORIES.map((c) => [c, 0]))
     let total = 0
@@ -121,6 +155,9 @@ export function DataProvider({ children }) {
       makePayment,
       addSalary,
       addExpense,
+      updatePlannedBudget,
+      addProject,
+      addEmployee,
       getProjectSpend,
       getPendingCount,
       employeeName,

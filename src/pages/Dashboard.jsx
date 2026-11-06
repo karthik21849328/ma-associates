@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import ProjectCard from '../components/ProjectCard'
 import StatPill from '../components/StatPill'
 import { useData } from '../context/DataContext'
@@ -57,6 +58,11 @@ export default function Dashboard() {
 
       <div className="section-title">
         <h2>Projects</h2>
+        {isEngineer && (
+          <Link to="/projects/new" className="btn btn-primary btn-sm">
+            Add project
+          </Link>
+        )}
       </div>
 
       <div className="project-list">
