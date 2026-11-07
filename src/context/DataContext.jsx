@@ -12,7 +12,7 @@ import {
 } from '../data/mock'
 import { todayISO, uid } from '../utils/format'
 
-const STORAGE_KEY = 'ma-associates-data-v6'
+const STORAGE_KEY = 'ma-associates-data-v7'
 
 const DataContext = createContext(null)
 

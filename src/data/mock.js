@@ -39,11 +39,9 @@ export const initialProjects = [
 ]
 
 export const initialEmployees = [
-  { id: 'e1', name: 'Ramesh Patil', role: 'Site Supervisor', phone: '98765 43210' },
-  { id: 'e2', name: 'Suresh Kulkarni', role: 'Mason Lead', phone: '98765 43211' },
-  { id: 'e3', name: 'Anita Desai', role: 'Accounts', phone: '98765 43212' },
-  { id: 'e4', name: 'Prakash Naik', role: 'Driver', phone: '98765 43213' },
-  { id: 'e5', name: 'Vijay Hegde', role: 'Helper', phone: '98765 43214' },
+  { id: 'e1', name: 'Nagesh', role: 'Staff', phone: '' },
+  { id: 'e2', name: 'Abdul Salam', role: 'Staff', phone: '' },
+  { id: 'e3', name: 'Sahim', role: 'Staff', phone: '' },
 ]
 
 export const initialRequests = [
@@ -152,38 +150,6 @@ export const initialPayments = [
   },
 ]
 
-export const initialSalaries = [
-  {
-    id: 's1',
-    employeeId: 'e1',
-    month: '2026-09',
-    amount: 28000,
-    paidAt: '2026-09-30',
-  },
-  {
-    id: 's2',
-    employeeId: 'e2',
-    month: '2026-09',
-    amount: 22000,
-    paidAt: '2026-09-30',
-  },
-]
+export const initialSalaries = []
 
-export const initialExpenses = [
-  {
-    id: 'x1',
-    employeeId: 'e4',
-    type: 'Travel',
-    amount: 1200,
-    note: 'Site visit — Nongagur to Vidyanagar',
-    date: '2026-10-12',
-  },
-  {
-    id: 'x2',
-    employeeId: 'e1',
-    type: 'Expense',
-    amount: 850,
-    note: 'Site tea & misc materials',
-    date: '2026-10-14',
-  },
-]
+export const initialExpenses = []
